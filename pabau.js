@@ -30,6 +30,25 @@ function findPathAndLetters(grid) {
         path += currentChar;
 
         if (/[A-Z]/.test(currentChar)) {
+            let newDirection = null;
+
+            
+            if (direction !== 'down' && currentRow > 0 && grid[currentRow - 1][currentCol] !== ' ' && grid[currentRow - 1][currentCol] !== undefined) {
+                newDirection = 'up';
+            }
+            if (direction !== 'up' && currentRow < grid.length - 1 && grid[currentRow + 1][currentCol] !== ' ' && grid[currentRow + 1][currentCol] !== undefined) {
+                newDirection = 'down';
+            }
+            if (direction !== 'right' && currentCol > 0 && grid[currentRow][currentCol - 1] !== ' ' && grid[currentRow][currentCol - 1] !== undefined) {
+                newDirection = 'left';
+            }
+            if (direction !== 'left' && currentCol < grid[0].length - 1 && grid[currentRow][currentCol + 1] !== ' ' && grid[currentRow][currentCol + 1] !== undefined) {
+                newDirection = 'right';
+            }
+
+            if (newDirection) {
+                direction = newDirection;
+            }
             letters += currentChar;
         }
 
@@ -80,7 +99,7 @@ const grid = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'],
     ['+', '-', 'U', '-', '+', ' ', ' ', ' ', 'C'],
     ['|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|'],
-    ['s', ' ', ' ', ' ', '+', '-', '-', '-', '+'],
+    ['s', ' ', ' ', ' ', 'C', '-', '-', '-', '+'],
   ];
 
 const result = findPathAndLetters(grid);
